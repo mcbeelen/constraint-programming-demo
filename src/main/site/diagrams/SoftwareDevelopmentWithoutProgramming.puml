@@ -1,0 +1,14 @@
+@startuml
+title Software Development without Programming
+
+
+Actor Developer
+Actor "Some Oracle" as Oracle
+Developer -[#gray]> Oracle: This is my problem domain
+Developer -[#gray]> Oracle: These are some constraints
+Developer -[#red]> Oracle : Solve IT!
+note over Oracle: Something magic\nhappening here
+Oracle -[#green]> Developer :  Okay, here is a solution
+Developer -[#green]>> Oracle : Thank you!
+
+@enduml

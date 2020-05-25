@@ -1,0 +1,11 @@
+@startuml
+title Software development
+
+
+Actor Business
+Actor IT
+Business->IT: We have a problem
+IT -> IT : Do something magical
+IT -> Business :  Provide a solution
+
+@enduml

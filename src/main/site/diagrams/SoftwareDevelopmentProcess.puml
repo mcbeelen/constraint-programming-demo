@@ -1,0 +1,13 @@
+@startuml
+title Software Development Process
+
+
+Actor Business
+Actor IT
+IT -> Business: Why do we need to do this?
+IT -> Business: What do we need to do?
+IT -> IT : Figure out how we are going to \nsolve this problem
+IT -> IT : Implement the algorithm
+IT -> Business :  Provide the solution
+
+@enduml
