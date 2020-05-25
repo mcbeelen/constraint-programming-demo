@@ -4,14 +4,26 @@
           integrity="sha256-OxiHrn+gXudPDHxTvXiQzeFjZU/FllSSPmOOYAZ1O/g=" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/theme/black.min.css"
           integrity="sha256-FMkhwnY485HRoNNbvFB6F2PHHAfpGSbJQwgGXSCPozM=" crossorigin="anonymous"/>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/lib/css/monokai.min.css"
+          integrity="sha256-uvf9pi6d5ovbhC64Go7y0ayuHYniEGnRBinKQ+ykpDY=" crossorigin="anonymous"/>
     <style>
 
         .reveal section img {
             width: auto;
             max-height: 480px;
         }
+
+        strong {
+            color: yellow;
+        }
+
     </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/js/reveal.min.js"
+            integrity="sha256-pv4AarTAzSO6lz+bbMPwmV29XMjkzmFOn601b2pWqXE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/plugin/highlight/highlight.min.js"
+            integrity="sha256-ffRbiOkLTtlf0R0P6MprGKZz3CRQbmpoR4ODWmcelU8=" crossorigin="anonymous"></script>
+
 
 </head>
 <body>
@@ -23,14 +35,23 @@
                 <em>Constraint Satisfaction Problems</em><br/>
                 (CSP)
             </h4>
-
             <h5>aka: Constraint Programming</h5>
         </section>
 
+        <section>
+            <p>
+                <strong>Constraint programming</strong><br/> represents one of the closest approaches computer science
+                has yet made<br/>
+                <em>to the Holy Grail of programming</em>:<br/>
+                <strong>the user states the problem, the computer solves it.</strong>
+
+                <q>Eugene C. Freuder, April 1997</q>
+            </p>
+        </section>
 
         <section id="software-development">
-                <img src="./images/SoftwareDevelopmentAsSeenByBusiness.png"
-                     alt="Software Development As Seen By Business">
+            <img src="./images/SoftwareDevelopmentAsSeenByBusiness.png"
+                 alt="Software Development As Seen By Business">
         </section>
 
         <section id="software-development-process">
@@ -44,13 +65,73 @@
                  alt="Software Development without programming">
         </section>
 
+        <section>
+            <h4><strong>Problem</strong></h4>
+            <ul>
+                <li>Defined by a set of variables</li>
+                <li>Each variables has a domain of values</li>
+                <li>A set of constraints defining the feasible combinations of values</li>
+
+            </ul>
+            <hr />
+            <h4><strong>Solution</strong></h4>
+            <ul>
+                <li>Assign each variable a value in its domain</li>
+                <li>Such that all constraints are satisfied</li>
+                <li><em>Optionally:</em> add one or many optimization criteria</li>
+            </ul>
+
+
+        </section>
+
+        <section id="sudoku-to-solve">
+            <div>
+                <img class="r-stretch" src="./images/SudokuPuzzle.png"
+                     alt="A sudoku puzzle">
+            </div>
+            <q>Source: <a href="https://en.wikipedia.org/wiki/Sudoku">https://en.wikipedia.org/wiki/Sudoku</a></q>
+        </section>
+
+
+        <section id="sudoku-rules-one">
+            <h3>Sudoku rules</h3>
+            <ul>
+                <li>Fill a <strong>9&#215;9</strong> grid with digits from 1 to 9.</li>
+                <li>Each <strong>row</strong> must have all of the digits</li>
+                <li>Each <strong>column</strong> must have all of the digits</li>
+                <li>Each <strong>box</strong> (a 3&#215;3 subgrid) must have all of the digits</li>
+            </ul>
+            <hr />
+            <h4>Consequences</h4>
+            <p>The same digit may not appear twice<br /> in the same row, column or any box</p>
+        </section>
+
+        <section id="solved-sudoku">
+            <div>
+                <img class="r-stretch" src="./images/SolvedSudokuPuzzle.png"
+                     alt="A solved sudoku puzzle">
+            </div>
+            <q>Source: <a href="https://en.wikipedia.org/wiki/Sudoku">https://en.wikipedia.org/wiki/Sudoku</a></q>
+        </section>
+
+        <section>
+              <pre><code data-trim data-noescape>
+(def lazy-fib
+  (concat
+   [0 1]
+   ((fn rfib [a b]
+        (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
+  </code></pre>
+        </section>
+
+
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/js/reveal.min.js"
-        integrity="sha256-pv4AarTAzSO6lz+bbMPwmV29XMjkzmFOn601b2pWqXE=" crossorigin="anonymous"></script>
 <script>
-    Reveal.initialize();
+    Reveal.initialize({
+        plugins: [RevealHighlight]
+    });
 </script>
 </body>
 </html>
