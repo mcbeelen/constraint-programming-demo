@@ -1,34 +1,59 @@
+<!doctype html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/reveal.min.css"
-          integrity="sha256-OxiHrn+gXudPDHxTvXiQzeFjZU/FllSSPmOOYAZ1O/g=" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/theme/black.min.css"
-          integrity="sha256-FMkhwnY485HRoNNbvFB6F2PHHAfpGSbJQwgGXSCPozM=" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/lib/css/monokai.min.css"
-          integrity="sha256-uvf9pi6d5ovbhC64Go7y0ayuHYniEGnRBinKQ+ykpDY=" crossorigin="anonymous"/>
-    <style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        .reveal section img {
-            width: auto;
-            max-height: 480px;
-        }
+    <title>reveal.js</title>
 
-        strong {
-            color: yellow;
-        }
+    <link rel="stylesheet" href="reveal/reset.css">
+    <link rel="stylesheet" href="reveal/reveal.css">
+    <link rel="stylesheet" href="reveal/theme/black.css" id="theme">
 
-    </style>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/js/reveal.min.js"
-            integrity="sha256-pv4AarTAzSO6lz+bbMPwmV29XMjkzmFOn601b2pWqXE=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/plugin/highlight/highlight.min.js"
-            integrity="sha256-ffRbiOkLTtlf0R0P6MprGKZz3CRQbmpoR4ODWmcelU8=" crossorigin="anonymous"></script>
-
-
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="reveal/plugin/highlight/monokai.css" id="highlight-theme">
 </head>
 <body>
 <div class="reveal">
     <div class="slides">
+
+
+        <section>
+          <pre><code data-trim data-noescape data-line-numbers="2-3|1,7|3" class="kotlin">
+import org.chocosolver.solver.Model              
+              
+val COLUMNS = 'A' .. 'I'
+val ROWS = 1 .. 9
+
+class SudokuSolver {
+    val model = Model("Some Sudoku")
+
+    val variables: Map&lt;VariableName, IntVar> = createSudokuGrid()
+
+    private fun createSudokuGrid(): Map&lt;VariableName, IntVar> {
+        val variables = HashMap&lt;VariableName, IntVar>().toMutableMap()
+        ROWS.forEach { row ->
+            COLUMNS.forEach { column ->
+                createSudokuField(column, row) { variableName, variable ->
+                    variables[variableName] = variable
+                }
+            }
+        }
+        return variables
+    }
+
+    private fun createSudokuField(column: Char, row: Int, callback: (variableName: VariableName, variable: IntVar) -> Unit) {
+        val variableName = "$column$row"
+        val square = model.intVar(variableName, 1, 9, false)
+        callback(variableName, square)
+    }
+    ...
+}
+</code></pre>
+        </section>
+
+
+
         <section>
             <h4>
                 Solving<br/>
@@ -106,6 +131,7 @@
             <p>The same digit may not appear twice<br /> in the same row, column or any box</p>
         </section>
 
+
         <section id="solved-sudoku">
             <div>
                 <img class="r-stretch" src="./images/SolvedSudokuPuzzle.png"
@@ -115,22 +141,39 @@
         </section>
 
         <section>
-              <pre><code data-trim data-noescape>
-(def lazy-fib
-  (concat
-   [0 1]
-   ((fn rfib [a b]
-        (lazy-cons (+ a b) (rfib b (+ a b)))) 0 1)))
-  </code></pre>
+            <h5>Wrong question:</h5>
+            <h4>How would I <br />implement an algorithm<br /> to solve this?</h4>
         </section>
+
+        <section>
+            <h5>Right question:</h5>
+            <h3>How can I <strong>model</strong> this problem?</h3>
+            <p class="fragment r-stretch">
+                <img src="./images/SudokoModel.png"
+                     alt="Model of a Sudoku">
+
+            </p>
+        </section>
+
+
 
 
     </div>
 </div>
 
+<script src="reveal/reveal.js"></script>
+<script src="reveal/plugin/notes/notes.js"></script>
+<script src="reveal/plugin/markdown/markdown.js"></script>
+<script src="reveal/plugin/highlight/highlight.js"></script>
 <script>
+    // More info about initialization & config:
+    // - https://revealjs.com/initialization/
+    // - https://revealjs.com/config/
     Reveal.initialize({
-        plugins: [RevealHighlight]
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
     });
 </script>
 </body>
